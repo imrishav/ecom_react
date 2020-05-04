@@ -1,23 +1,23 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import "./App.css";
 
 import "./pages/homepage/homepage.scss";
 
 import HomePage from "./pages/homepage/homepage";
-
-const HatsPage = () => {
-  return (
-    <div>
-      <h1>H1 Page</h1>
-    </div>
-  );
-};
+import ShopPage from "./pages/shop/shop";
+import Header from "./components/header/header";
+import Auth from "./pages/auth/auth";
 
 function App() {
   return (
     <div className="App">
-      <Route exact path="/" component={HomePage} />
-      <Route path="/shop/hats" component={HatsPage} />
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route path="/signin" component={Auth} />
+      </Switch>
     </div>
   );
 }
