@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import FormInput from "../form-input/formInput";
 import Button from "../button/button";
+import { connect } from "react-redux";
+import { testMeReducer } from "../../redux/testMe/actions";
 
 import { authentication, signInWithGoogle } from "../../firebase/firebase";
 
@@ -63,9 +65,20 @@ class SignIn extends Component {
             </Button>
           </div>
         </form>
+        <Button onClick={() => this.props.changeDispatch("rishav")}>
+          Test
+        </Button>
       </div>
     );
   }
 }
 
-export default SignIn;
+const mapStateToProps = ({ user, test }) => {
+  console.log(test, "userState");
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  changeDispatch: (test) => dispatch(testMeReducer(test)),
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
