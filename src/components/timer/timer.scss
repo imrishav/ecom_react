@@ -1,0 +1,17 @@
+.items {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  align-content: center;
+  flex-flow: wrap;
+  //   align-items: ;
+}
+
+.item {
+  padding: 30px;
+  border: 2px solid black;
+  margin: 40px;
+  align-self: start;
+}

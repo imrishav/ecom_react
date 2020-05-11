@@ -40,6 +40,13 @@ export default class Directory extends Component {
           id: 5,
           linkUrl: "shop/mens",
         },
+        {
+          title: "mens ^&&^^",
+          imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
+          size: "large",
+          id: 6,
+          linkUrl: "shop/tv",
+        },
       ],
     };
   }

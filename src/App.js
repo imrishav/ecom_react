@@ -7,9 +7,10 @@ import "./pages/homepage/homepage.scss";
 
 import HomePage from "./pages/homepage/homepage";
 import ShopPage from "./pages/shop/shop";
-
+import Time from "./components/timer/time";
 import Header from "./components/header/header";
 import Auth from "./pages/auth/auth";
+import CheckoutPage from "./pages/checkout/checkout";
 import { setCurrentUser } from "./redux/user/actions";
 import { authentication, createUserProfileDoc } from "./firebase/firebase";
 
@@ -17,7 +18,7 @@ function App(props) {
   // const [currentUser, setcurrentUser] = useState();
   // const [user2, setUser] = useState(false);
   // const [abc, setAbc] = useState({});
-  console.log(props);
+  // console.log(props);
   const { setCurrentUser, currentUser } = props;
   // const aut = () =>
   //   authentication.onAuthStateChanged(async (user) => {
@@ -43,14 +44,14 @@ function App(props) {
       if (user) {
         createUserProfileDoc(user).then((res) => {
           res.onSnapshot((snap) => {
-            console.log(snap.data());
+            // console.log(snap.data());
             setCurrentUser({ id: snap.id, data: { ...snap.data() } });
             // console.log(currentUser);
           });
         });
         // console.log(currentUser);
       } else {
-        console.log("iddd");
+        // console.log("iddd");
       }
       // setcurrentUser(user);
     });
@@ -62,6 +63,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact
           path="/signin"
