@@ -13,3 +13,23 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
+
+export const removeToCart = (cartItems, cartItemToAdd) => {
+  console.log("existing", cartItemToAdd);
+
+  const existing = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToAdd.id
+  );
+
+  if (existing.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToAdd.id);
+  }
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToAdd.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+
+  return [...cartItems];
+};

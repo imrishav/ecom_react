@@ -1,9 +1,21 @@
-import { addItemToCart } from "../../components/cart/cartUtils";
+import { addItemToCart, removeToCart } from "../../components/cart/cartUtils";
 
 const intitalState = {
   show: false,
   cartItems: [],
 };
+// const intitalState = {
+//   show: false,
+//   cartItems: [
+//     {
+//       id: 2,
+//       imageUrl: "https://i.ibb.co/ypkgK0X/blue-beanie.png",
+//       name: "Blue Beanie",
+//       price: 10,
+//       quantity: 2,
+//     },
+//   ],
+// };
 
 const cartReducer = (state = intitalState, action) => {
   switch (action.type) {
@@ -12,10 +24,23 @@ const cartReducer = (state = intitalState, action) => {
         ...state,
         show: action.payload,
       };
+    case "REMOVE_ITEM":
+      console.log(action.payload);
+      return {
+        ...state,
+        cartItems: removeToCart(state.cartItems, action.payload),
+      };
     case "ADD_ITEM":
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload),
+      };
+    case "CLEAR_ITEM_FROM_CART":
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (cartItem) => cartItem.id !== action.payload.id
+        ),
       };
     default:
       return state;
