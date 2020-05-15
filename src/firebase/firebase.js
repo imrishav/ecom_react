@@ -13,6 +13,8 @@ const config = {
   measurementId: "G-GGK36S858G",
 };
 
+firebase.initializeApp(config);
+
 export const createUserProfileDoc = async (userAuth, data) => {
   if (!userAuth) return;
 
@@ -39,7 +41,37 @@ export const createUserProfileDoc = async (userAuth, data) => {
   return userRef;
 };
 
-firebase.initializeApp(config);
+export const addCollectionAndDocuments = async (colletionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(colletionKey);
+
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obje) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obje);
+    console.log(newDocRef);
+  });
+  // console.log(collectionRef);
+  return await batch.commit();
+};
+
+export const covertCollectionSnapshotToMpa = (collections) => {
+  const transformend = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  return transformend.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
+};
 
 export const authentication = firebase.auth();
 export const firestore = firebase.firestore();

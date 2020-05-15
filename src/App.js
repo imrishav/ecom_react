@@ -12,31 +12,17 @@ import Header from "./components/header/header";
 import Auth from "./pages/auth/auth";
 import CheckoutPage from "./pages/checkout/checkout";
 import { setCurrentUser } from "./redux/user/actions";
-import { authentication, createUserProfileDoc } from "./firebase/firebase";
+import { selectCurrentUser } from "./redux/user/user-selectors";
+import {
+  authentication,
+  createUserProfileDoc,
+  addCollectionAndDocuments,
+} from "./firebase/firebase";
+import { createStructuredSelector } from "reselect";
+import { selectCollectionForPre } from "./redux/shop/shop-selector";
 
 function App(props) {
-  // const [currentUser, setcurrentUser] = useState();
-  // const [user2, setUser] = useState(false);
-  // const [abc, setAbc] = useState({});
-  // console.log(props);
   const { setCurrentUser, currentUser } = props;
-  // const aut = () =>
-  //   authentication.onAuthStateChanged(async (user) => {
-  //     if (user.email) {
-  //       setUser(true);
-  //       const userRef = await createUserProfileDoc(user);
-
-  //       userRef.onSnapshot((snapshot) => {
-  //         setcurrentUser({
-  //           id: snapshot.id,
-  //           ...snapshot.data(),
-  //         });
-  //       });
-  //       console.log("inside", currentUser);
-  //     }
-  //     // setcurrentUser(user);
-  //     // createUserProfi  leDoc(user);
-  //   });
 
   useEffect(() => {
     // aut();
@@ -73,9 +59,8 @@ function App(props) {
     </div>
   );
 }
-
-const mapStateToProps = ({ user, test }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
