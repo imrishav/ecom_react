@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
-import { fetchCollectionStartAysnc } from "../../redux/shop/actions";
+import { fetchCollectionStart } from "../../redux/shop/actions";
 
 import {
   selectIsCollectionFetching,
@@ -20,8 +20,8 @@ const CollectionSpinner = WithSpinner(Collection);
 
 class Shop extends Component {
   componentDidMount() {
-    const { fetchCollectionStartAysnc } = this.props;
-    fetchCollectionStartAysnc();
+    const { fetchCollectionStart } = this.props;
+    fetchCollectionStart();
   }
 
   render() {
@@ -54,7 +54,7 @@ const mapStateToProps = createStructuredSelector({
   isCollLoaded: selectIsCollectionsLoaded,
 });
 const mapDispatch = (dispatch) => ({
-  fetchCollectionStartAysnc: () => dispatch(fetchCollectionStartAysnc()),
+  fetchCollectionStart: () => dispatch(fetchCollectionStart()),
 });
 
 export default connect(mapStateToProps, mapDispatch)(Shop);
