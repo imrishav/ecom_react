@@ -6,3 +6,8 @@ export const selectDirectorySections = createSelector(
   [selectDirectory],
   (directory) => directory.sections
 );
+
+export const selectCatFromDB = createSelector(
+  [selectDirectory],
+  (directory) => directory.categ
+);

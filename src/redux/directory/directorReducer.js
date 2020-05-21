@@ -1,3 +1,5 @@
+import CategoriesTypes from "./types";
+
 const INITIAL_STATE = {
   sections: [
     {
@@ -40,10 +42,22 @@ const INITIAL_STATE = {
       linkUrl: "shop/tv",
     },
   ],
+  categ: [],
+  errorMessage: undefined,
 };
 
 const directoryReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case CategoriesTypes.FETCH_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        categ: action.payload.data,
+      };
+    case CategoriesTypes.FETCH_CATEGORIES_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
     default:
       return state;
   }

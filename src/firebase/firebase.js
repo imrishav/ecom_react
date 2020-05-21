@@ -73,6 +73,21 @@ export const covertCollectionSnapshotToMpa = (collections) => {
   }, {});
 };
 
+export const collectionChange = (collections) => {
+  const transforee = collections.map((item) => {
+    return {
+      title: item.title,
+      category: item.category,
+      linkUrl: item.linkUrl,
+      imageUrl: item.imageUrl,
+    };
+  });
+
+  return transforee.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
+};
 export const authentication = firebase.auth();
 export const firestore = firebase.firestore();
 

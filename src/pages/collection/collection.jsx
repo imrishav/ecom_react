@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import CollectionItem from "../../components/collection-item/collection-item";
 
-import { selectCollection } from "../../redux/shop/shop-selector";
+import {
+  selectCollection,
+  selectCollection2,
+} from "../../redux/shop/shop-selector";
 import "./collection.scss";
 
-const Collection = ({ match, collection }) => {
-  console.log("dasd", collection);
+const Collection = ({ match, abc, collection, collection2, getAllCat }) => {
   const { title, items } = collection;
+  console.log("old Values", collection);
+  console.log("mydbatase", collection2);
+
   return (
     <div className="collection-page">
       <h2 className="title">{title}</h2>
       <div className="items">
-        {items.map((item) => (
+        {collection2.category.map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
       </div>
@@ -23,6 +28,8 @@ const Collection = ({ match, collection }) => {
 
 const mapSta = (state, ownProps) => ({
   collection: selectCollection(ownProps.match.params.collectionId)(state),
+  collection2: selectCollection2(ownProps.match.params.collectionId)(state),
+  abc: state.directory,
 });
 
 // export default Collection;

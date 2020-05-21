@@ -3,15 +3,26 @@ import MenuItem from "../menu-item/menu-item";
 
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectDirectorySections } from "../../redux/directory/directory-selector";
-import "./directory.scss";
+import { fetchCategoriesAsync } from "../../redux/directory/actions";
 
-const Directory = ({ directory }) => {
-  console.log(directory);
+import {
+  selectDirectorySections,
+  selectCatFromDB,
+} from "../../redux/directory/directory-selector";
+import "./directory.scss";
+import { useEffect } from "react";
+
+const Directory = ({ directory, getAllCat, categ }) => {
+  console.log("directory....", categ);
+
+  useEffect(() => {
+    getAllCat();
+  }, []);
+
   return (
     <div className="directory-menu">
-      {directory.map(({ id, ...otherSectionProps }) => {
-        return <MenuItem key={id} {...otherSectionProps} />;
+      {categ.map(({ _id, ...otherSectionProps }) => {
+        return <MenuItem key={_id} {...otherSectionProps} />;
       })}
     </div>
   );
@@ -19,5 +30,11 @@ const Directory = ({ directory }) => {
 
 const mapState = createStructuredSelector({
   directory: selectDirectorySections,
+  categ: selectCatFromDB,
 });
-export default connect(mapState, null)(Directory);
+
+const mapDispatch = (dispatch) => ({
+  getAllCat: () => dispatch(fetchCategoriesAsync()),
+});
+
+export default connect(mapState, mapDispatch)(Directory);

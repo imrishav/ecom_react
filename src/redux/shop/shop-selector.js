@@ -7,6 +7,17 @@ export const selectShopItems = createSelector(
   (shop) => shop.collections
 );
 
+export const selectShopItems2 = createSelector(
+  [selectShop],
+  (shop) => shop.newColl
+);
+
+export const selectCollectionForPre2 = createSelector(
+  [selectShopItems2],
+  (collections) =>
+    collections ? Object.keys(collections).map((key) => collections[key]) : []
+);
+
 export const selectCollectionForPre = createSelector(
   [selectShopItems],
   (collections) =>
@@ -15,6 +26,11 @@ export const selectCollectionForPre = createSelector(
 
 export const selectCollection = (collectionUrlParam) =>
   createSelector([selectShopItems], (collections) =>
+    collections ? collections[collectionUrlParam] : null
+  );
+
+export const selectCollection2 = (collectionUrlParam) =>
+  createSelector([selectShopItems2], (collections) =>
     collections ? collections[collectionUrlParam] : null
   );
 

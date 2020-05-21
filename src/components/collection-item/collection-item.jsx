@@ -7,10 +7,22 @@ import Button from "../button/button";
 import "./collection-item.scss";
 
 const CollectionItem = ({ item, addItem }) => {
-  const { name, price, imageUrl } = item;
+  // const { name, price, imageUrl } = item;
+  // return (
+  //   <div className="collection-item">
+  //     <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
+  //     <div className="collection-footer">
+  //       <span className="name">{name}</span>
+  //       <span className="price">{price}</span>
+  //     </div>
+  //     <Button invert onClick={() => addItem(item)}>
+  //       ADD TO CART
+  //     </Button>
+  //   </div>
+  const { name, price, image } = item;
   return (
     <div className="collection-item">
-      <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
+      <div className="image" style={{ backgroundImage: `url(${image})` }} />
       <div className="collection-footer">
         <span className="name">{name}</span>
         <span className="price">{price}</span>

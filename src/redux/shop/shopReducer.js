@@ -2,6 +2,7 @@ import ShopActionTypes from "./types";
 
 const INTIAL_STATE = {
   collections: null,
+  newColl: null,
   isFetching: false,
   errorMessage: undefined,
 };
@@ -24,6 +25,12 @@ const shopReducer = (state = INTIAL_STATE, action) => {
         ...state,
         isFetching: false,
         errorMessage: action.payload,
+      };
+    case ShopActionTypes.FETCH_COLLECTION_SUCCESS2:
+      return {
+        ...state,
+        isFetching: false,
+        newColl: action.payload,
       };
     default:
       return state;
