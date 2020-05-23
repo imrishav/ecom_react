@@ -15,14 +15,10 @@ import { useEffect } from "react";
 const Directory = ({ directory, getAllCat, categ }) => {
   console.log("directory....", categ);
 
-  useEffect(() => {
-    getAllCat();
-  }, []);
-
   return (
     <div className="directory-menu">
-      {categ.map(({ _id, ...otherSectionProps }) => {
-        return <MenuItem key={_id} {...otherSectionProps} />;
+      {directory.map(({ id, ...otherSectionProps }) => {
+        return <MenuItem key={id} {...otherSectionProps} />;
       })}
     </div>
   );
@@ -30,11 +26,11 @@ const Directory = ({ directory, getAllCat, categ }) => {
 
 const mapState = createStructuredSelector({
   directory: selectDirectorySections,
-  categ: selectCatFromDB,
+  // categ: selectCatFromDB,
 });
 
-const mapDispatch = (dispatch) => ({
-  getAllCat: () => dispatch(fetchCategoriesAsync()),
-});
+// const mapDispatch = (dispatch) => ({
+//   getAllCat: () => dispatch(fetchCategoriesAsync()),
+// });
 
-export default connect(mapState, mapDispatch)(Directory);
+export default connect(mapState)(Directory);
