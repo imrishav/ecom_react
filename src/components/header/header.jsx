@@ -15,6 +15,7 @@ import "./header.scss";
 import { signOutStart } from "../../redux/user/actions";
 
 const Header = ({ currentUser, cartShow, signOutStart }) => {
+  console.log("currentUser", currentUser);
   const handleSignOut = (e) => {
     e.preventDefault();
 
@@ -52,9 +53,14 @@ const Header = ({ currentUser, cartShow, signOutStart }) => {
             CONTACT
           </Link>
           {currentUser ? (
-            <div className="option" onClick={signOutStart}>
-              Sign Out
-            </div>
+            <>
+              <div className="option" onClick={signOutStart}>
+                {currentUser.displayName}
+              </div>
+              <div className="option" onClick={signOutStart}>
+                Sign Out
+              </div>
+            </>
           ) : (
             <Link to="/signin" className="option">
               Sign In
