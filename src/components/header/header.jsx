@@ -10,6 +10,7 @@ import { authentication } from "../../firebase/firebase";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cartIcon/cartIcon";
 import CartDropDown from "../cart/cartDropDown";
+import Carosel from "../carosel/carosel";
 import "./header.scss";
 
 import { signOutStart } from "../../redux/user/actions";
@@ -22,13 +23,10 @@ const Header = ({ currentUser, cartShow, signOutStart }) => {
     firebase.auth().signOut();
   };
   return (
-    <div className="header">
-      <Link to="/" className="logo-container">
-        <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link to="/shop" className="option">
-          SHOP
+    <>
+      <div className="header">
+        <Link to="/" className="logo-container">
+          <Logo className="logo" />
         </Link>
         <Link to="/shop" className="option">
           CONTACT
@@ -42,10 +40,38 @@ const Header = ({ currentUser, cartShow, signOutStart }) => {
             Sign In
           </Link>
         )}
-        <CartIcon />
+        <form action="#" class="search">
+          <input type="text" class="search_input" placeholder="Hotels Here" />
+          <button class="search__button">
+            <svg class="search__icon">
+              {/* <use xlink:href="img/sprites.svg#icon-magnifying-glass"></use> */}
+            </svg>
+          </button>
+        </form>
+
+        <div className="options">
+          <Link to="/shop" className="option">
+            SHOP
+          </Link>
+          <Link to="/shop" className="option">
+            CONTACT
+          </Link>
+
+          <CartIcon />
+        </div>
+
+        {cartShow ? <CartDropDown /> : null}
       </div>
-      {cartShow ? <CartDropDown /> : null}
-    </div>
+      <div className="selectCat">
+        <ul className="selectCat__title">
+          <li className="selectCat__options">Electronics</li>
+          <li className="selectCat__options">Men</li>
+          <li className="selectCat__options">Women</li>
+          <li className="selectCat__options">Footwear</li>
+        </ul>
+      </div>
+      <Carosel />
+    </>
   );
 };
 
