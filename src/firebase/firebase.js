@@ -73,14 +73,24 @@ export const covertCollectionSnapshotToMpa = (collections) => {
   }, {});
 };
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unSubs = authentication.onAuthStateChanged((userAuth) => {
+      unSubs();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export const authentication = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-export const signInWithGoogle = () => authentication.signInWithPopup(provider);
+export const signInWithGoogle = () =>
+  authentication.signInWithPopup(googleProvider);
 
 export default firebase;
