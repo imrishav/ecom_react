@@ -41,6 +41,13 @@ const INITIAL_STATE = {
       id: 6,
       linkUrl: "shop/tv",
     },
+    {
+      title: "tvvvv^",
+      imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
+      size: "large",
+      id: 7,
+      linkUrl: "shop/tv",
+    },
   ],
   categ: [],
   errorMessage: undefined,

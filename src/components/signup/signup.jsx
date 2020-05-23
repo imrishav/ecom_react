@@ -1,10 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Input from "../form-input/formInput";
 import Button from "../button/button";
 import "./signup.scss";
 
 import { authentication, createUserProfileDoc } from "../../firebase/firebase";
+
+import { signUpStart } from "../../redux/user/actions";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -25,24 +28,8 @@ class Signup extends React.Component {
       return;
     }
 
-    try {
-      const { user } = await authentication.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(user);
-
-      await createUserProfileDoc(user, { displayName });
-
-      this.setState({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const { signUp } = this.props;
+    signUp({ email, password, displayName });
   };
 
   handleChange = (eve) => {
@@ -98,4 +85,8 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+const mapD = (dispatch) => ({
+  signUp: (userCredentials) => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapD)(Signup);

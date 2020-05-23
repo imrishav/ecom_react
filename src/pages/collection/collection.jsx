@@ -9,16 +9,15 @@ import {
 } from "../../redux/shop/shop-selector";
 import "./collection.scss";
 
-const Collection = ({ match, abc, collection, collection2, getAllCat }) => {
+const Collection = ({ collection }) => {
   const { title, items } = collection;
   console.log("old Values", collection);
-  console.log("mydbatase", collection2);
 
   return (
     <div className="collection-page">
       <h2 className="title">{title}</h2>
       <div className="items">
-        {collection2.category.map((item) => (
+        {collection.category.map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
       </div>

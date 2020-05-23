@@ -11,7 +11,7 @@ import Time from "./components/timer/time";
 import Header from "./components/header/header";
 import Auth from "./pages/auth/auth";
 import CheckoutPage from "./pages/checkout/checkout";
-import { setCurrentUser } from "./redux/user/actions";
+import { setCurrentUser, checkUserSession } from "./redux/user/actions";
 import { selectCurrentUser } from "./redux/user/user-selectors";
 import {
   authentication,
@@ -23,25 +23,12 @@ import { selectCollectionForPre } from "./redux/shop/shop-selector";
 
 function App(props) {
   const { setCurrentUser, currentUser } = props;
+  console.log(currentUser);
 
   useEffect(() => {
-    // aut();
-    authentication.onAuthStateChanged((user) => {
-      if (user) {
-        createUserProfileDoc(user).then((res) => {
-          res.onSnapshot((snap) => {
-            // console.log(snap.data());
-            setCurrentUser({ id: snap.id, data: { ...snap.data() } });
-            // console.log(currentUser);
-          });
-        });
-        // console.log(currentUser);
-      } else {
-        // console.log("iddd");
-      }
-      // setcurrentUser(user);
-    });
-  }, []);
+    const { checkUserSession } = props;
+    checkUserSession();
+  }, [currentUser]);
 
   return (
     <div className="App">
@@ -65,6 +52,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  checkUserSession: () => dispatch(checkUserSession()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
