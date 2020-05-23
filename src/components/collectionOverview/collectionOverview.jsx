@@ -17,11 +17,8 @@ const CollectionOverview = ({ collections, coll2 }) => {
   console.log("yeh this 2", coll2);
   return (
     <div className="collections-overview">
-      {/* {collections.map(({ id, ...other }) => {
+      {collections.map(({ id, ...other }) => {
         return <PreviewCollection key={id} {...other} />;
-      })} */}
-      {coll2.map(({ _id, ...other }) => {
-        return <PreviewCollection key={_id} {...other} />;
       })}
     </div>
   );

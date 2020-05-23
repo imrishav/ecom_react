@@ -10,7 +10,6 @@ import { authentication } from "../../firebase/firebase";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cartIcon/cartIcon";
 import CartDropDown from "../cart/cartDropDown";
-import Carosel from "../carosel/carosel";
 import "./header.scss";
 
 import { signOutStart } from "../../redux/user/actions";
@@ -28,22 +27,18 @@ const Header = ({ currentUser, cartShow, signOutStart }) => {
         <Link to="/" className="logo-container">
           <Logo className="logo" />
         </Link>
-        <Link to="/shop" className="option">
+        {/* <Link to="/shop" className="option">
           CONTACT
-        </Link>
-        {currentUser ? (
-          <div className="option" onClick={signOutStart}>
-            Sign Out
-          </div>
-        ) : (
-          <Link to="/signin" className="option">
-            Sign In
-          </Link>
-        )}
-        <form action="#" class="search">
-          <input type="text" class="search_input" placeholder="Hotels Here" />
-          <button class="search__button">
-            <svg class="search__icon">
+        </Link> */}
+
+        <form action="#" className="search">
+          <input
+            type="text"
+            className="search_input"
+            placeholder="Search Here"
+          />
+          <button className="search__button">
+            <svg className="search__icon">
               {/* <use xlink:href="img/sprites.svg#icon-magnifying-glass"></use> */}
             </svg>
           </button>
@@ -56,6 +51,15 @@ const Header = ({ currentUser, cartShow, signOutStart }) => {
           <Link to="/shop" className="option">
             CONTACT
           </Link>
+          {currentUser ? (
+            <div className="option" onClick={signOutStart}>
+              Sign Out
+            </div>
+          ) : (
+            <Link to="/signin" className="option">
+              Sign In
+            </Link>
+          )}
 
           <CartIcon />
         </div>
@@ -70,7 +74,6 @@ const Header = ({ currentUser, cartShow, signOutStart }) => {
           <li className="selectCat__options">Footwear</li>
         </ul>
       </div>
-      <Carosel />
     </>
   );
 };
