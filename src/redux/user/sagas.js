@@ -38,7 +38,6 @@ export function* singInWithGoogle() {
 }
 
 export function* signInWithEmail({ payload: { email, password } }) {
-  console.log("pay", email, password);
   try {
     const { user } = yield authentication.signInWithEmailAndPassword(
       email,

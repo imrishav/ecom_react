@@ -56,6 +56,7 @@ export const addCollectionAndDocuments = async (colletionKey, objectsToAdd) => {
 };
 
 export const covertCollectionSnapshotToMpa = (collections) => {
+  console.log("ddas", collections);
   const transformend = collections.docs.map((doc) => {
     const { title, items } = doc.data();
 

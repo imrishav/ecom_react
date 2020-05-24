@@ -26,7 +26,6 @@ class Shop extends Component {
 
   render() {
     const { match, isCollectionFetching, isCollLoaded } = this.props;
-    console.log("ddasdasdasdadadadas", this.props);
     return (
       <div className="shop-page">
         <Route

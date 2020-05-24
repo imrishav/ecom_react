@@ -20,6 +20,7 @@ import {
 } from "./firebase/firebase";
 import { createStructuredSelector } from "reselect";
 import { selectCollectionForPre } from "./redux/shop/shop-selector";
+import Product from "./pages/Product/Product";
 
 function App(props) {
   const { setCurrentUser, currentUser } = props;
@@ -42,6 +43,7 @@ function App(props) {
           path="/signin"
           render={() => (currentUser ? <Redirect to="/" /> : <Auth />)}
         />
+        <Route exact path="/product/:id" component={Product} />
       </Switch>
     </div>
   );

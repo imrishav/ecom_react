@@ -49,7 +49,7 @@ const INITIAL_STATE = {
       linkUrl: "shop/tv",
     },
   ],
-  categ: [],
+  category: [],
   errorMessage: undefined,
 };
 
@@ -58,7 +58,7 @@ const directoryReducer = (state = INITIAL_STATE, action) => {
     case CategoriesTypes.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categ: action.payload.data,
+        category: action.payload,
       };
     case CategoriesTypes.FETCH_CATEGORIES_FAILURE:
       return {

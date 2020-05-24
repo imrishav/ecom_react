@@ -12,12 +12,16 @@ import {
 import "./directory.scss";
 import { useEffect } from "react";
 
-const Directory = ({ directory, getAllCat, categ }) => {
-  console.log("directory....", categ);
+import { fetchCategoriesStart } from "../../redux/directory/actions";
+
+const Directory = ({ directory, fetchCategoriesStart, category }) => {
+  useEffect(() => {
+    fetchCategoriesStart();
+  }, []);
 
   return (
     <div className="directory-menu">
-      {directory.map(({ id, ...otherSectionProps }) => {
+      {category.map(({ id, ...otherSectionProps }) => {
         return <MenuItem key={id} {...otherSectionProps} />;
       })}
     </div>
@@ -26,11 +30,11 @@ const Directory = ({ directory, getAllCat, categ }) => {
 
 const mapState = createStructuredSelector({
   directory: selectDirectorySections,
-  // categ: selectCatFromDB,
+  category: selectCatFromDB,
 });
 
-// const mapDispatch = (dispatch) => ({
-//   getAllCat: () => dispatch(fetchCategoriesAsync()),
-// });
+const mapDispatch = (dispatch) => ({
+  fetchCategoriesStart: () => dispatch(fetchCategoriesStart()),
+});
 
-export default connect(mapState)(Directory);
+export default connect(mapState, mapDispatch)(Directory);

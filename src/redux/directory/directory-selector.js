@@ -9,5 +9,5 @@ export const selectDirectorySections = createSelector(
 
 export const selectCatFromDB = createSelector(
   [selectDirectory],
-  (directory) => directory.categ
+  (directory) => directory.category
 );
