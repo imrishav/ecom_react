@@ -7,7 +7,7 @@ import "./signup.scss";
 
 import { authentication, createUserProfileDoc } from "../../firebase/firebase";
 
-import { signUpStart } from "../../redux/user/actions";
+import { signUpStart, signUpStartLocal } from "../../redux/user/actions";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -28,8 +28,8 @@ class Signup extends React.Component {
       return;
     }
 
-    const { signUp } = this.props;
-    signUp({ email, password, displayName });
+    const { signUp, signUpLocal } = this.props;
+    signUpLocal({ email, password, displayName, confirmPassword });
   };
 
   handleChange = (eve) => {
@@ -87,6 +87,7 @@ class Signup extends React.Component {
 
 const mapD = (dispatch) => ({
   signUp: (userCredentials) => dispatch(signUpStart(userCredentials)),
+  signUpLocal: (userCredentials) => dispatch(signUpStartLocal(userCredentials)),
 });
 
 export default connect(null, mapD)(Signup);

@@ -8,7 +8,7 @@ const intitalState = {
 const userReducer = (state = intitalState, action) => {
   switch (action.type) {
     case UserActionTypes.SIGN_IN_SUCESS:
-      console.log(action.payload);
+      console.log("inReducer", action.payload);
       return {
         ...state,
         currentUser: action.payload,

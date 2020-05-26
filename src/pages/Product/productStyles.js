@@ -13,16 +13,16 @@ export const ProductHero = styled.div`
 `;
 
 export const ProductSummary = styled.div`
-  background-color: red;
+  background-color: white;
   padding: 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
 
   .title {
-    font-size: 22px;
+    font-size: 28px;
     letter-spacing: 1px;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .smallSummary {
@@ -36,7 +36,7 @@ export const PriceComponent = styled.div`
   padding-bottom: 10px;
 
   .disountedPrice {
-    font-size: 20px;
+    font-size: 22px;
     margin-right: 24px;
     font-weight: bold;
   }
@@ -44,11 +44,11 @@ export const PriceComponent = styled.div`
   .percent {
     align-self: center;
     margin-left: 21px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .orginalPrice {
-    font-size: 14px;
+    font-size: 19px;
     font-weight: 100;
     align-self: center;
 
@@ -77,5 +77,20 @@ export const BrandInfo = styled.div`
   .imageBrand {
     flex: 0 0 20%;
     width: 20px;
+  }
+`;
+
+export const Services = styled.div`
+  display: flex;
+
+  .delivery {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 50%;
+
+    .delivery__text1 {
+      font-size: 22px;
+      font-weight: 600;
+    }
   }
 `;

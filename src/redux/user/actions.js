@@ -46,6 +46,12 @@ export const signUpStart = (emailAndpass) => ({
   payload: emailAndpass,
 });
 
+//Local DB SIGN-Up
+export const signUpStartLocal = (credentials) => ({
+  type: UserActionTypes.SIGN_UP_START,
+  payload: credentials,
+});
+
 export const signUpSuccess = ({ user, additionalData }) => ({
   type: UserActionTypes.SIGN_UP_SUCCESS,
   payload: { user, additionalData },

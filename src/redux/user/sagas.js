@@ -1,6 +1,7 @@
 import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import { UserActionTypes } from "./userActions";
+import axios from "axios";
 
 import {
   signInFailure,
@@ -10,6 +11,8 @@ import {
   signUpFailure,
   signUpSuccess,
 } from "./actions";
+
+import { Generate } from "../../utils/generateDetails";
 
 import {
   googleProvider,
@@ -37,15 +40,36 @@ export function* singInWithGoogle() {
   }
 }
 
+// export function* signInWithEmail({ payload: { email, password } }) {
+//   console.log(email, password);
+//   try {
+//     const { user } = yield authentication.signInWithEmailAndPassword(
+//       email,
+//       password
+//     );
+//     const userRef = yield call(createUserProfileDoc, user);
+//     const userSnapShot = yield userRef.get();
+// yield put(signInSuccess({ id: userSnapShot.id, ...userSnapShot.data() }));
+//   } catch (error) {
+//     yield put(signInFailure(error));
+//   }
+// }
+
+//Local Login
 export function* signInWithEmail({ payload: { email, password } }) {
+  console.log(email, password);
   try {
-    const { user } = yield authentication.signInWithEmailAndPassword(
-      email,
-      password
-    );
-    const userRef = yield call(createUserProfileDoc, user);
-    const userSnapShot = yield userRef.get();
-    yield put(signInSuccess({ id: userSnapShot.id, ...userSnapShot.data() }));
+    const { data } = yield axios({
+      method: "POST",
+      url: "http://localhost:3001/users/login",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        email: email,
+        password: password,
+      },
+    });
+    localStorage.setItem("token", data.data.token);
+    yield put(signInSuccess(data.data));
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -54,6 +78,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield getCurrentUser();
+    console.log(userAuth);
     if (!userAuth) return;
     yield getSnaphotUserAuth(userAuth);
   } catch (error) {
@@ -70,16 +95,63 @@ export function* signOut() {
   }
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
+// export function* signUp({ payload: { email, password, displayName } }) {
+//   try {
+//     const { user } = yield authentication.createUserWithEmailAndPassword(
+//       email,
+//       password
+//     );
+//     yield put(signUpSuccess({ user, additionalData: { displayName } }));
+//   } catch (error) {
+//     yield put(signUpFailure(error));
+//   }
+// }
+
+//Local DB SIGNUP
+
+export function* signUp({
+  payload: { email, password, confirmPassword, displayName },
+}) {
+  // "name" : "Rishav",
+  // "email": "admin@live.com",
+  // "password": "123456",
+  // "passwordConfirm": "123456"
+
+  // http://localhost:3001/users/signup
+
+  const user = {
+    name: displayName,
+    email,
+    password,
+    passwordConfirm: confirmPassword,
+  };
+
   try {
-    const { user } = yield authentication.createUserWithEmailAndPassword(
-      email,
-      password
-    );
-    yield put(signUpSuccess({ user, additionalData: { displayName } }));
+    const newUser = yield axios({
+      method: "POST",
+      url: "http://localhost:3001/users/signup",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        name: displayName,
+        email: email,
+        password: password,
+        passwordConfirm: confirmPassword,
+      },
+    });
+
+    console.log("after signup", newUser);
   } catch (error) {
-    yield put(signUpFailure(error));
+    yield put(signInFailure(error));
   }
+  // try {
+  //   const { user } = yield authentication.createUserWithEmailAndPassword(
+  //     email,
+  //     password
+  //   );
+  //   yield put(signUpSuccess({ user, additionalData: { displayName } }));
+  // } catch (error) {
+  //   yield put(signUpFailure(error));
+  // }
 }
 
 export function* signInAfterSignUp({ payload: { user, additionalData } }) {
